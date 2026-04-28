@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="page-header">
+        <h1>Bảng điều khiển <span>{{ role | upper }}</span></h1>
+        <div class="user-info">
+            <i class="fa-solid fa-circle-user"></i> Xin chào, <strong>{{ session.get('full_name') }}</strong>
+        </div>
+    </div>
+
+    <div class="dashboard-nav">
+        <a href="/orders" class="nav-card">
+            <i class="fa-solid fa-box-open"></i>
+            <span>Quản lý vận đơn</span>
+        </a>
+        <a href="/map" class="nav-card">
+            <i class="fa-solid fa-map-location-dot"></i>
+            <span>Bản đồ bưu cục</span>
+        </a>
+        <a href="/logout" class="nav-card logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Đăng xuất</span>
+        </a>
+    </div>
+    <div class="content-card">
+        <div class="card-header">
+            <h3><i class="fa-solid fa-truck-ramp-box"></i> Hàng đợi vận đơn</h3>
+            <span class="badge-count">{{ orders|length }} đơn hàng</span>
+        </div>
+
+        <div class="order-queue">
+            {% if orders and orders|length > 0 %}
+                {% for order in orders %}
+                <div class="order-node">
+                    <div class="node-icon">
+                        <i class="fa-solid fa-box"></i>
+                    </div>
+                    <div class="node-info">
+                        <div class="node-main">
+                            <span class="order-id">Mã: #{{ order.id }}</span>
+                            <span class="order-status status-{{ order.status|lower }}">{{ order.status }}</span>
+                        </div>
+                        <div class="node-sub">
+                            <span><i class="fa-solid fa-location-dot"></i> {{ order.destination }}</span>
+                            <span><i class="fa-solid fa-clock"></i> {{ order.created_at }}</span>
+                        </div>
+                    </div>
+                    <div class="node-action">
+                        <a href="/order/detail/{{ order.id }}" class="btn-view">Chi tiết</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-queue">
+                    <i class="fa-solid fa-inbox"></i>
+                    <p>Hiện tại chưa có đơn hàng nào trong khu vực quản lý của bạn.</p>
+                    <small>Hệ thống sẽ tự động cập nhật khi có vận đơn mới được khởi tạo.</small>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="content-card">
+        <h3><i class="fa-solid fa-list-check"></i> Danh sách đơn hàng gần đây</h3>
+        
+        {% if orders %}
+        <div class="table-responsive">
+            <table class="modern-table">
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Trạng thái</th>
+                        <th>Khu vực</th>
+                        <th>Ngày tạo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>#{{ order.order_id }}</td>
+                        <td><span class="status-badge">{{ order.status }}</span></td>
+                        <td>{{ order.region_id }}</td>
+                        <td>{{ order.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" alt="Empty" width="100">
+            <p>Hiện tại chưa có đơn hàng nào trong khu vực quản lý của bạn.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

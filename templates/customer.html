@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Quản lý <span>Khách hàng</span></h1>
+    <div class="header-actions">
+        <button class="btn-primary" style="padding: 10px 20px; font-size: 14px;">
+            <i class="fa-solid fa-user-plus"></i> Thêm khách hàng mới
+        </button>
+    </div>
+</div>
+
+<div class="search-bar">
+    <i class="fa-solid fa-magnifying-glass" style="align-self: center; color: var(--text-muted);"></i>
+    <input type="text" placeholder="Tìm kiếm tên, email hoặc mã khách hàng...">
+</div>
+
+<div class="table-container">
+    <table class="modern-table">
+        <thead>
+            <tr>
+                <th><i class="fa-solid fa-id-badge"></i> Tên khách hàng</th>
+                <th><i class="fa-solid fa-envelope"></i> Email liên hệ</th>
+                <th><i class="fa-solid fa-server"></i> Khu vực (Shard)</th>
+                <th style="text-align: center;"><i class="fa-solid fa-gears"></i> Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td class="font-weight-bold">{{ customer.name }}</td>
+                <td>{{ customer.email }}</td>
+                <td>
+                    <span class="shard-badge shard-{{ customer.shard_location|lower }}">
+                        {{ customer.shard_location }}
+                    </span>
+                </td>
+                <td style="text-align: center;">
+                    <div class="action-buttons">
+                        <button class="btn-action edit" title="Chỉnh sửa">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn-action delete" title="Xóa khách hàng">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+
+            {% if not customers %}
+            <tr>
+                <td colspan="4" style="text-align: center; padding: 50px; color: var(--text-muted);">
+                    <i class="fa-solid fa-users-slash" style="font-size: 30px; display: block; margin-bottom: 10px;"></i>
+                    Chưa có dữ liệu khách hàng ở phân mảnh này.
+                </td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

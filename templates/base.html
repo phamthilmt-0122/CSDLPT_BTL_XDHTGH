@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashy Logistics System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light); margin: 0; }
+        .navbar { background: white; padding: 15px 30px; display: flex; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .nav-logo { font-weight: bold; color: var(--primary); font-size: 20px; text-decoration: none; }
+        .main-container { padding: 20px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="nav-logo"><i class="fa-solid fa-bolt"></i> FASHY LOGISTICS</a>
+        <div class="nav-links">
+            <span style="margin-right: 15px; color: #64748b;">
+                <i class="fa-solid fa-user-check"></i> {{ session.get('full_name', 'User') }}
+            </span>
+            <a href="/logout" style="color: #ef4444; text-decoration: none; font-weight: 600;">
+                <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+            </a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

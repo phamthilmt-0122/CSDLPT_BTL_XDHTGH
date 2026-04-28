@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký tài khoản - Fashy Logistics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="internal-badge" style="background: #e0f2fe; color: #0369a1;">KHÁCH HÀNG MỚI</div>
+
+        <h2>TẠO TÀI KHOẢN</h2>
+        <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">Đăng ký để trải nghiệm dịch vụ vận chuyển 3 miền</p>
+
+        <form action="/register" method="POST">
+            <div class="input-group">
+                <i class="fa-solid fa-signature input-icon"></i>
+                <input type="text" name="full_name" placeholder="Họ và tên của bạn" required>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-user-plus input-icon"></i>
+                <input type="text" name="username" placeholder="Tên đăng nhập mong muốn" required>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-key input-icon"></i>
+                <input type="password" name="password" placeholder="Mật khẩu" required>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-earth-asia input-icon"></i>
+                <select name="region" required>
+                    <option value="" disabled selected>-- Chọn khu vực lưu trữ dữ liệu --</option>
+                    <option value="North">Khu vực Miền Bắc</option>
+                    <option value="Central">Khu vực Miền Trung</option>
+                    <option value="South">Khu vực Miền Nam</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-auth">
+                TẠO TÀI KHOẢN <i class="fa-solid fa-user-check" style="margin-left: 8px;"></i>
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Đã có tài khoản? <a href="/login" style="color: #3b82f6; font-weight: 600;">Đăng nhập ngay</a></p>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 15px 0;">
+
+            <a href="{{ url_for('home') }}" class="back-home-link">
+                <i class="fa-solid fa-arrow-left"></i> Quay lại trang chủ
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
