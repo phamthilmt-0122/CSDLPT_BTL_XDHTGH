@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="max-width: 600px;">
+        <div class="internal-badge">DỊCH VỤ VẬN CHUYỂN</div>
+        <h2>ĐẶT ĐƠN HÀNG MỚI</h2>
+        <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">Điền thông tin để chúng tôi đến lấy hàng tận nơi</p>
+
+        <form action="/order/create" method="POST">
+            <div class="input-group">
+                <i class="fa-solid fa-box-archive input-icon"></i>
+                <input type="text" name="item_name" placeholder="Tên hàng hóa (ví dụ: Quần áo, Điện tử...)" required>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-weight-hanging input-icon"></i>
+                <input type="number" name="weight" placeholder="Khối lượng ước tính (kg)" step="0.1" required>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-map-pin input-icon"></i>
+                <input type="text" name="pickup_address" placeholder="Địa chỉ lấy hàng" required>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-truck-fast input-icon"></i>
+                <input type="text" name="delivery_address" placeholder="Địa chỉ giao hàng" required>
+            </div>
+
+            <button type="submit" class="btn-auth">
+                XÁC NHẬN ĐẶT ĐƠN <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <a href="{{ url_for('dashboard') }}" class="back-home-link">
+                <i class="fa-solid fa-arrow-left"></i> Quay lại Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

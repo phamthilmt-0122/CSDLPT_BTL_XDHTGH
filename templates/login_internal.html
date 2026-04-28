@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập Nội bộ - Fashy Logistics</title>
+    <title>Hệ thống Quản trị - Fashy Logistics</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -13,43 +13,56 @@
     <div class="auth-card">
         <div class="internal-badge">HỆ THỐNG QUẢN TRỊ</div>
 
-        <h2 style="margin-bottom: 10px;">ĐĂNG NHẬP</h2>
-        <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">Vui lòng chọn đúng khu vực làm việc</p>
+        <h2 style="margin-bottom: 5px;">ĐĂNG NHẬP</h2>
+        <p style="color: #64748b; font-size: 13px; margin-bottom: 20px;">Xác thực quyền truy cập nhân sự</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}" style="padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 15px; background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca;">
+                <i class="fa-solid fa-triangle-exclamation"></i> {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
 
         <form action="/internal/login" method="POST">
             <div class="input-group">
-                <i class="fa-solid fa-map-location-dot input-icon"></i>
+                <i class="fa-solid fa-server input-icon"></i>
                 <select name="region" required>
-                    <option value="" disabled selected>-- Chọn miền làm việc --</option>
-                    <option value="North">Bưu cục Miền Bắc (Database North)</option>
-                    <option value="Central">Bưu cục Miền Trung (Database Central)</option>
-                    <option value="South">Bưu cục Miền Nam (Database South)</option>
+                    <option value="" disabled selected>-- Chọn khu vực làm việc --</option>
+                    <option value="North">Bưu cục Miền Bắc (Shard North)</option>
+                    <option value="Central">Bưu cục Miền Trung (Shard Central)</option>
+                    <option value="South">Bưu cục Miền Nam (Shard South)</option>
                 </select>
             </div>
 
             <div class="input-group">
-                <i class="fa-solid fa-user-tie input-icon"></i>
-                <input type="text" name="username" placeholder="Mã nhân viên" required>
+                <i class="fa-solid fa-user-shield input-icon"></i>
+                <input type="text" name="username" placeholder="Mã nhân viên / Username" required>
             </div>
 
             <div class="input-group">
                 <i class="fa-solid fa-lock input-icon"></i>
-                <input type="password" name="password" placeholder="Mật khẩu" required>
+                <input type="password" name="password" placeholder="Mật khẩu bảo mật" required>
             </div>
 
             <button type="submit" class="btn-auth btn-internal">
-                VÀO HỆ THỐNG <i class="fa-solid fa-right-to-bracket" style="margin-left: 8px;"></i>
+                XÁC THỰC VÀO HỆ THỐNG <i class="fa-solid fa-shield-check" style="margin-left: 8px;"></i>
             </button>
         </form>
 
         <div class="auth-footer">
-            <p style="margin-bottom: 10px; font-style: italic;">Dành riêng cho Admin, Kho và Shipper</p>
-            <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 15px;">
+            <p style="margin-bottom: 10px; font-style: italic; font-size: 12px; color: #94a3b8;">
+                Hệ thống ghi lại nhật ký đăng nhập của Admin & Shipper
+            </p>
+            <hr style="border: 0; border-top: 1px solid #f1f5f9; margin-bottom: 15px;">
             <a href="{{ url_for('home') }}" class="back-home-link">
-                <i class="fa-solid fa-house"></i> Quay lại trang chủ
+                <i class="fa-solid fa-circle-arrow-left"></i> Quay lại cổng chính
             </a>
         </div>
     </div>
 </div>
+
 </body>
 </html>
